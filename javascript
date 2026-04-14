@@ -1,8 +1,9 @@
 Qualtrics.SurveyEngine.addOnReady(function () {
+    const qid = this.questionId;
     const input = this.getQuestionContainer().querySelector("textarea, input[type='text'], input");
 
     if (!input) {
-        console.log("NO INPUT FOUND");
+        console.log("NO INPUT FOUND for", qid);
         return;
     }
 
@@ -36,14 +37,14 @@ Qualtrics.SurveyEngine.addOnReady(function () {
             firstKeyTime !== null && lastKeyTime !== null ? lastKeyTime - firstKeyTime : "";
         const charCount = input.value ? input.value.length : 0;
 
-        Qualtrics.SurveyEngine.setJSEmbeddedData("ks_timeToFirstKey", String(timeToFirstKey));
-        Qualtrics.SurveyEngine.setJSEmbeddedData("ks_typingTime", String(typingTime));
-        Qualtrics.SurveyEngine.setJSEmbeddedData("ks_keyCount", String(keyCount));
-        Qualtrics.SurveyEngine.setJSEmbeddedData("ks_backspaces", String(backspaces));
-        Qualtrics.SurveyEngine.setJSEmbeddedData("ks_paste", String(pasteCount));
-        Qualtrics.SurveyEngine.setJSEmbeddedData("ks_chars", String(charCount));
+        Qualtrics.SurveyEngine.setJSEmbeddedData(qid + "_timeToFirstKey", String(timeToFirstKey));
+        Qualtrics.SurveyEngine.setJSEmbeddedData(qid + "_typingTime", String(typingTime));
+        Qualtrics.SurveyEngine.setJSEmbeddedData(qid + "_keyCount", String(keyCount));
+        Qualtrics.SurveyEngine.setJSEmbeddedData(qid + "_backspaces", String(backspaces));
+        Qualtrics.SurveyEngine.setJSEmbeddedData(qid + "_pasteCount", String(pasteCount));
+        Qualtrics.SurveyEngine.setJSEmbeddedData(qid + "_charCount", String(charCount));
 
-        console.log("SAVED", {
+        console.log("SAVED for", qid, {
             timeToFirstKey,
             typingTime,
             keyCount,
